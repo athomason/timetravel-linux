@@ -1,0 +1,18 @@
+PURPOSE
+
+  Executable wrapper to fake the results of syscalls which return absolute
+  times. Calls to SYS_gettimeofday, SYS_clock_gettime, and SYS_time are
+  intercepted.
+
+CAVEATS
+
+  Will not work for all calls on kernels implementing vsyscalls, e.g. some
+  x86_64. These cannot be intercepted since on such systems gettimeofday is not
+  actually a syscall; glibc reads the time for a shared page which is updated
+  by the kernel.
+
+USAGE
+
+  % timetravel <offset> <executable> <program args>
+
+  where offset is a positive or negative time in seconds.
